@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4756445615605998707}
   - component: {fileID: 1685525178397989684}
   - component: {fileID: 9106619381424770775}
-  - component: {fileID: 2364910764883004634}
+  - component: {fileID: 1206721721224696307}
   - component: {fileID: 7349620690129749773}
   m_Layer: 0
   m_Name: AgenteOgro
@@ -216,7 +216,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2364910764883004634
+--- !u!114 &1206721721224696307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,12 +225,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8565998408677802308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abac3c06f60b81f45b4ae10a7f9dc942, type: 3}
+  m_Script: {fileID: 11500000, guid: 74acc68ce38f5f54db30e3b3ed1839b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  target2: {fileID: 0}
-  timeSwitch: 5
+  targets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!195 &7349620690129749773
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -241,8 +246,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.5
-  m_Speed: 20
-  m_Acceleration: 8
+  m_Speed: 10
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
