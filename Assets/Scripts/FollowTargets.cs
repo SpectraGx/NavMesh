@@ -5,44 +5,37 @@ using UnityEngine.AI;
 
 public class FollowTargets : MonoBehaviour
 {
-    [Header("Targets")]
-    [SerializeField] private Transform[] targets;
-    NavMeshAgent navMeshAgent;
-    bool switchTarget = false;
+    [SerializeField] private List<Transform> targets;
+    private List<Transform> availableTargets = new List<Transform>();
+    private Transform currentTarget;
+    [SerializeField] private NavMeshAgent agent;
+
 
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        SetTarget(Random.Range(0, targets.Length));
+        availableTargets.AddRange(targets);
+        SetNewRandomTarget();
     }
 
     void Update()
     {
-        if (navMeshAgent.remainingDistance < 0.5f)
+        if (agent.remainingDistance < 0.5f && !agent.pathPending)
         {
-            SetTarget(Random.Range(0, targets.Length));
+            availableTargets.Remove(currentTarget);
+
+            if (availableTargets.Count == 0)
+            {
+                Debug.Log("No hay mas targets, reseteando");
+                availableTargets.AddRange(targets);
+            }
+            SetNewRandomTarget();
         }
     }
 
-    void EliminationTarget(int index)
+    void SetNewRandomTarget()
     {
-        Transform[] newTargets = new Transform[targets.Length - 1];
-        for (int i = 0; i < targets.Length; i++)
-        {
-            if (i < index)
-            {
-                newTargets[i] = targets[i];
-            }
-            else if (i > index)
-            {
-                newTargets[i - 1] = targets[i];
-            }
-        }
-        targets = newTargets;
-    }
-
-    public void SetTarget(int index)
-    {
-        navMeshAgent.SetDestination(targets[index].position);
+        int randomIndex = Random.Range(0, availableTargets.Count);
+        currentTarget = availableTargets[randomIndex];
+        agent.SetDestination(currentTarget.position);
     }
 }
