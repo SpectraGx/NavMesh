@@ -11,12 +11,12 @@ NavMeshProjectSettings:
     cost: 1
   - name: Jump
     cost: 2
-  - name: 
+  - name: Banqueta
     cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
+  - name: Peaton
+    cost: 2
+  - name: Carretera
+    cost: 10
   - name: 
     cost: 1
   - name: 
@@ -94,8 +94,8 @@ NavMeshProjectSettings:
     agentRadius: 0.5
     agentHeight: 1
     agentSlope: 50
-    agentClimb: 0.4
-    ledgeDropHeight: 0
+    agentClimb: 0.1
+    ledgeDropHeight: -5
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
