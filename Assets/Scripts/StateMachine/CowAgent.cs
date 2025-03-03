@@ -10,69 +10,41 @@ public class CowAgent : MonoBehaviour
     public float resistance = 100f;
     public float lactation = 30f;
     public float stress = 0f;
+    public float distanceObjective = 0f;
 
     [Header("Cow Zones")]
     public Transform grassArea;
     public Transform playArea;
     public Transform barnArea;
     public Transform milkArea;
-    public Transform safeArea;
 
     [Header("Cow NavMesh")]
     public NavMeshAgent agent;
 
     [Header("Cow State Machine")]
-    StateMachine<CowAgent> fsm;
-    private State<CowAgent> currentState;
-    private float stateTimer = 0;
+    StateMachine<CowAgent> stateMachine;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = 5f;
 
-        fsm = new StateMachine<CowAgent>(this);
-
-        fsm.SetCurrentState(CowStateIdle.instance);
-        currentState = CowStateIdle.instance;
-
+        stateMachine = new StateMachine<CowAgent>(this);
+        stateMachine.SetCurrentState(CowIdleState.instance);
     }
 
     void Update()
     {
-        fsm.Updating();
-        CheckStateTransitions();
+        
     }
 
-    void CheckStateTransitions()
+    void FixedUpdate()
     {
-        if (hungry < 30 && currentState != CowStateEat.instance)
-        {
-            ChangeState(CowStateEat.instance);
-        }
-        else if (stress > 70 && currentState != CowStatePlay.instance)
-        {
-            ChangeState(CowStatePlay.instance);
-        }
-        else if (lactation > 80 && currentState != CowStateMilk.instance)
-        {
-            ChangeState(CowStateMilk.instance);
-        }
-        else if (resistance < 30 && currentState != CowStateRest.instance)
-        {
-            ChangeState(CowStateRest.instance);
-        }
-        else if (currentState != CowStateIdle.instance && hungry >= 30 && stress <= 70 && lactation <= 80 && resistance >= 30)
-        {
-            ChangeState(CowStateIdle.instance);
-        }
+        stateMachine.Updating();
+        distanceObjective = Vector3.Distance(agent.destination, transform.position);
     }
 
-    void ChangeState(State<CowAgent> newState)
+    public StateMachine<CowAgent> getFSM()
     {
-        currentState = newState;
-        fsm.ChangeState(newState);
+        return stateMachine;
     }
-
-
 }
