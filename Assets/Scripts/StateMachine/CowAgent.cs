@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.UI;
+using TMPro;
 
 public class CowAgent : MonoBehaviour
 {
@@ -24,6 +26,17 @@ public class CowAgent : MonoBehaviour
     [Header("Cow State Machine")]
     StateMachine<CowAgent> stateMachine;
 
+    [Header("Wolf enemy")]
+    public float distanceEscape = 5f;
+    public Transform wolf;
+
+    [Header("Cow UI")]
+    public TextMeshProUGUI stateText;
+
+    [Header("VFX")]
+    public GameObject exploteVFX;
+
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -34,7 +47,7 @@ public class CowAgent : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -47,4 +60,5 @@ public class CowAgent : MonoBehaviour
     {
         return stateMachine;
     }
+
 }

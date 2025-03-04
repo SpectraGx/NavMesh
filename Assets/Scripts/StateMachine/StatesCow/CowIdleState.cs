@@ -22,6 +22,8 @@ public class CowIdleState : State<CowAgent>
     public override void Execute(CowAgent entity)
     {
         Debug.Log("Vaca en estado Idle");
+        entity.stateText.text = "Idle";
+
 
         // Comportamiento
         entity.hungry -= 3f * Time.deltaTime;
@@ -59,6 +61,12 @@ public class CowIdleState : State<CowAgent>
             {
                 entity.getFSM().SetCurrentState(CowMilkState.instance);
             }
+        }
+
+        float distance = Vector3.Distance(entity.wolf.position, entity.transform.position);
+        if (distance < entity.distanceEscape)
+        {
+            entity.getFSM().SetCurrentState(CowEscapeState.instance);
         }
     }
 }

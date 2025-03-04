@@ -22,6 +22,8 @@ public class CowMilkState : State<CowAgent>
     public override void Execute(CowAgent entity)
     {
         Debug.Log("Ordeñando vaca");
+        entity.stateText.text = "Ordeñando";
+
 
         // Comportamiento
         entity.lactation -= Time.deltaTime;

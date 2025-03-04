@@ -23,6 +23,6 @@ public class CowExploteState : State<CowAgent>
 
     public override void Execute(CowAgent entity)
     {
-        
+        Instantiate(entity.exploteVFX, entity.transform.position, Quaternion.identity);
     }
 }

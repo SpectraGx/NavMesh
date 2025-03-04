@@ -22,11 +22,31 @@ public class CowEscapeState : State<CowAgent>
     public override void Execute(CowAgent entity)
     {
         Debug.Log("Vaca escapando");
+        entity.stateText.text = "Escapando";
+
 
         // Comportamiento
         entity.stress += 5f * Time.deltaTime;
         entity.resistance -= 5f * Time.deltaTime;
         entity.hungry -= 2f * Time.deltaTime;
+
+        float distance = Vector3.Distance(entity.wolf.position, entity.transform.position);
+
+        if (distance < entity.distanceEscape)
+        {
+            entity.agent.destination = entity.barnArea.position;
+        }
+
+        if (distance <= 1.1f)
+        {
+            entity.getFSM().SetCurrentState(CowExploteState.instance);
+        }
+
+        float distanceBarn = Vector3.Distance(entity.barnArea.position, entity.transform.position);
+        if (distanceBarn < 1.1f || distance > 12f)
+        {
+            entity.getFSM().SetCurrentState(CowSleepState.instance);
+        }
 
         // Cambio de estado
         if (entity.stress >= 95)

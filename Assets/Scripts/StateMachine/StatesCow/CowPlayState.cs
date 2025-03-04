@@ -22,6 +22,8 @@ public class CowPlayState : State<CowAgent>
     public override void Execute(CowAgent entity)
     {
         Debug.Log("Vaca jugando");
+        entity.stateText.text = "Jugando";
+
 
         // Comportamiento
         entity.stress -= 5f * Time.deltaTime;
@@ -57,6 +59,12 @@ public class CowPlayState : State<CowAgent>
             {
                 entity.getFSM().SetCurrentState(CowSleepState.instance);
             }
+        }
+
+        float distance = Vector3.Distance(entity.wolf.position, entity.transform.position);
+        if (distance > entity.distanceEscape)
+        {
+            entity.getFSM().SetCurrentState(CowEscapeState.instance);
         }
     }
 }
